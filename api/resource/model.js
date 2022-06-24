@@ -4,6 +4,8 @@ const findResources = () => {
     return db('resources')
 }
 
+
+
 const insert = (resource) => {
     return db('resources').insert(resource)
     .then(([resource_id]) => db('resources').where({ resource_id}))

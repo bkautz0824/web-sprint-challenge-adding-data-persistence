@@ -1,6 +1,6 @@
 const express = require('express');
 const Resource = require('./model')
-
+const { validateName} = require('./middleware')
 const router = express.Router();
 
 
@@ -17,11 +17,12 @@ router.get('/', async (req, res) => {
     
 })
 
-router.post('/', async (req, res) => {
+
+
+router.post('/', validateName, async (req, res) => {
     try{
-        const resource = req.body
         
-        const newResource = await Resource.insert(resource)
+        const newResource = await Resource.insert(req.body)
         res.json(newResource)
     }catch(err){
         res.status(404).json({message: err.message})
